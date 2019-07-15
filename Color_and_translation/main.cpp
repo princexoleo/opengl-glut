@@ -42,8 +42,8 @@ int main(int argc, char**argv)
     glutDisplayFunc(display); //first time need to drawn and this is callback function
     glutReshapeFunc(reshape); //reshape function is callback function, this function call when window change shape or reshape windows
 
-    //this call display function in millisceonds again and again
-    glutTimerFunc(1000,timer,0); //this function need for animations. take 3 parameter(miliseconds, timer callback, int)
+    //this call display function in milliseconds again and again
+    glutTimerFunc(1000,timer,0); //this function need for animations. take 3 parameter(milliseconds, timer callback, int)
 
     init();
     glutMainLoop(); // This loop terminate then our program also terminated and this loop hold the window
