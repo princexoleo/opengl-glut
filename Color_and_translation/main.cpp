@@ -9,6 +9,7 @@ float Blue = 0.0;
 void display();
 void reshape(int,int);
 void timer(int);
+void box_draw();
 
 void init()
 {
@@ -48,7 +49,7 @@ int main(int argc, char**argv)
     glutMainLoop(); // This loop terminate then our program also terminated and this loop hold the window
 }
 
-float x_position = -10.0;
+float x_position = 0.0;
 int state =1;
 
 void display()
@@ -57,20 +58,14 @@ void display()
     //clear all pixels in frameBuffer
     glClear(GL_COLOR_BUFFER_BIT); //it clears any type of pixel but we use flag to specification
     glLoadIdentity();//reset matrix transformation
+
+    //before drawing anything we need to translate first
+    glTranslatef(x_position,x_position,0.0); //3 parameter for 3d and 2 parameter for 2D
+
     // begin drawing staffs
+     box_draw();
+    //
 
-
-    glBegin(GL_QUADS) ; // this is for creating  triangle
-    //change color
-    Red = 1.0;
-    glColor3f(Red,Green,Blue); //
-
-    glVertex2f(x_position, 2.0);
-    glVertex2f(x_position, -2.0);
-    glVertex2f(x_position+2.0, -2.0);
-    glVertex2f(x_position+2.0 , 2.0);
-
-    glEnd(); //and now openGL start drawing
 
    // glFlush(); //after drawing finish we have to call Flush
    glutSwapBuffers(); // this function will swap back and front buffer
@@ -100,12 +95,13 @@ void timer(int)
 {
     glutPostRedisplay(); //again call display function . redisplay fun called 60 times in 1 seconds
     glutTimerFunc(1000/60, timer, 0); //60fps means per seconds 60 frame rate
-    //1 seconds = 1000 milli=seconds , in 1 seconds this function call 60 time
+    //1 seconds = 1000 milliseconds , in 1 seconds this function call 60 time
     //now to change x position with small value for animations
+
     switch(state)
     {
         case 1:
-            if(x_position <8)
+            if(x_position <9)
             {
                 x_position+=0.15 ; // x coordinate move by 0.15 in every display function call
                 //this moving position makes animation to us
@@ -119,7 +115,7 @@ void timer(int)
             break;
 
         case -1:
-                if(x_position>-10)
+                if(x_position>-9)
                 {
                   x_position-=0.15 ;
                   Red =0.0;
@@ -131,4 +127,19 @@ void timer(int)
                 }
 
     }
+}
+void box_draw()
+{
+     glBegin(GL_QUADS) ; // this is for creating  triangle
+    //change color
+    Red = 1.0;
+    glColor3f(Red,Green,Blue); //
+
+    glVertex2f(-1.0, 1.0);
+    glVertex2f(-1.0, -1.0);
+    glVertex2f(1.0, -1.0);
+    glVertex2f(1.0 , 1.0);
+
+    glEnd(); //and now openGL start drawing
+
 }
