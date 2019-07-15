@@ -8,6 +8,7 @@ float Blue = 0.0;
 
 void display();
 void reshape(int,int);
+void timer(int);
 
 void init()
 {
@@ -37,9 +38,16 @@ int main(int argc, char**argv)
 
     glutDisplayFunc(display); //first time need to drawn and this is callback function
     glutReshapeFunc(reshape); //reshape function is callback function, this function call when window change shape or reshape windows
+
+    //this call display function in millisceonds again and again
+    glutTimerFunc(1000,timer,0); //this function need for animations. take 3 parameter(miliseconds, timer callback, int)
+
     init();
     glutMainLoop(); // This loop terminate then our program also terminated and this loop hold the window
 }
+
+float x_position = -10.0;
+int state =1;
 
 void display()
 {
@@ -50,15 +58,14 @@ void display()
     // begin drawing staffs
 
 
-    glBegin(GL_POLYGON) ; // this is for creating  triangle
+    glBegin(GL_QUADS) ; // this is for creating  triangle
 
-    glVertex2f(0.0,5.0); //p1
-    glVertex2f(-4.0,-3.0); //p2
-    glVertex2f(4.0,-3.0); //p3
-    glVertex2f(5.0,-2.0); //p4
+    glVertex2f(x_position, 2.0);
+    glVertex2f(x_position, -2.0);
+    glVertex2f(x_position+2.0, -2.0);
+    glVertex2f(x_position+2.0 , 2.0);
 
     glEnd(); //and now openGL start drawing
-
 
    // glFlush(); //after drawing finish we have to call Flush
    glutSwapBuffers(); // this function will swap back and front buffer
@@ -82,6 +89,34 @@ void reshape(int w, int h) //w=width h=height
     //Model View Matrix
     glMatrixMode(GL_MODELVIEW); // normally we draw staffs in modelView matrix mode always
 
+}
 
+void timer(int)
+{
+    glutPostRedisplay(); //again call display function . redisplay fun called 60 times in 1 seconds
+    glutTimerFunc(1000/60, timer, 0); //60fps means per seconds 60 frame rate
+    //1 seconds = 1000 milli=seconds , in 1 seconds this function call 60 time
+    //now to change x position with small value for animations
+    switch(state)
+    {
+        case 1:
+            if(x_position <8)
+            {
+                x_position+=0.15 ; // x coordinate move by 0.15 in every display function call
+                //this moving position makes animation to us
+            }else{
+             state =-1;
+            }
+            break;
+        case -1:
+                if(x_position>-10)
+                {
+                  x_position-=0.15 ;
+                }
+                else
+                {
+                    state = 1;
+                }
 
+    }
 }
