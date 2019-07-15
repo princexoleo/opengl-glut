@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1562967644 source:d:\opengl\glutinit\main.cpp
+1562968255 source:d:\opengl\glutinit\main.cpp
 	<windows.h>
 	<GL/gl.h>
 	<GL/glu.h>

@@ -16,12 +16,16 @@ int main(int argc, char**argv)
 {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB);
-    //set glut windows position x=200, y=100
+
+    //set glut windows position/coordinate x=200, y=100
     glutInitWindowPosition(200,100);
-    //set window size w=500 h=600
+
+    //set window size width=500 pixel height=600 pixel
     glutInitWindowSize(500,600);
+
     //create window with title
-    glutCreateWindow("Window 1");
+    glutCreateWindow("Basic GLUT ");
+
 
     glutDisplayFunc(display); //first time need to drawn
     init();
