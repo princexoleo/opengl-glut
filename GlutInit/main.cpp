@@ -27,9 +27,9 @@ int main(int argc, char**argv)
     glutCreateWindow("Basic GLUT ");
 
 
-    glutDisplayFunc(display); //first time need to drawn
+    glutDisplayFunc(display); //first time need to drawn and this is callback function
     init();
-    glutMainLoop();
+    glutMainLoop(); // This loop terminate then our programe also terminated and this loop hold the window
 }
 
 void display()
